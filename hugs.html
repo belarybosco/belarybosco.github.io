@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Hugs & Healing Words 🤗</title>
+  <meta name="description" content="Warm virtual hugs and inspiring medical quotes — a birthday gift wrapped in love.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤗</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══ Background Gradient Layers (crossfade) ═══ -->
+  <div class="bg-gradient bg-gradient--current" id="bgCurrent"></div>
+  <div class="bg-gradient bg-gradient--next" id="bgNext"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- ═══ Ambient Particles ═══ -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ═══ Top Controls Bar ═══ -->
+  <header class="controls-bar">
+    <div class="controls-bar__left">
+      <a href="index.html" class="btn-back" id="btnBack">
+        <span>←</span>
+        <span>Home</span>
+      </a>
+      <span class="quote-counter" id="quoteCounter">1 / 40</span>
+    </div>
+
+    <div class="controls-bar__right">
+      <!-- Timer Widget -->
+      <div class="timer-widget">
+        <div class="timer-circle">
+          <svg class="timer-circle__svg" viewBox="0 0 40 40">
+            <circle class="timer-circle__track" cx="20" cy="20" r="17" />
+            <circle
+              class="timer-circle__progress"
+              id="timerProgress"
+              cx="20" cy="20" r="17"
+              stroke-dasharray="106.81"
+              stroke-dashoffset="0"
+            />
+          </svg>
+          <span class="timer-circle__text" id="timerText">60</span>
+        </div>
+        <span style="font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 400;">sec</span>
+      </div>
+
+      <!-- Pause / Play -->
+      <button class="btn-pause" id="btnPause" aria-label="Pause">
+        <span id="btnPauseIcon">❚❚</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══ Main Quote Section ═══ -->
+  <main class="hugs-page">
+    <section class="quote-section">
+
+      <div class="quote-card" id="quoteCard">
+        <span class="quote-card__mark">"</span>
+
+        <p class="quote-card__text" id="quoteText">
+          "It's a beautiful day to save lives."
+        </p>
+
+        <div class="quote-card__source" id="quoteSource">
+          — Derek Shepherd
+          <span class="quote-card__show" id="quoteShow">Grey's Anatomy</span>
+        </div>
+
+        <span class="custom-badge" id="customBadge">✨ Your Custom Message</span>
+      </div>
+
+      <!-- Navigation Dots -->
+      <div class="quote-dots" id="quoteDots"></div>
+
+    </section>
+  </main>
+
+  <!-- ═══ Hug Button ═══ -->
+  <div class="hug-section">
+    <button class="btn-send-hug" id="btnHug">
+      <span class="btn-send-hug__emoji">🤗</span>
+      <span id="btnHugText">Virtual Hug</span>
+    </button>
+  </div>
+
+  <!-- Hug Counter -->
+  <div class="hug-counter" id="hugCounter">
+    🤗 <span id="hugCounterNum">0</span> hugs sent with love
+  </div>
+
+  <!-- ═══ Skip Button ═══ -->
+  <button class="btn-skip" id="btnSkip">
+    <span>Next</span>
+    <span>→</span>
+  </button>
+
+  <!-- ═══ Hug Animation Overlay ═══ -->
+  <div class="hug-overlay" id="hugOverlay"></div>
+
+  <!-- ═══ Easter Egg (hidden) ═══ -->
+  <button class="easter-egg" id="easterEgg" aria-label="Secret">♥</button>
+
+  <!-- ═══ Easter Egg Modal ═══ -->
+  <div class="ee-modal" id="eeModal">
+    <div class="ee-modal__backdrop"></div>
+    <div class="ee-modal__card">
+      <h2 class="ee-modal__title">🎉 You found the secret!</h2>
+      <p class="ee-modal__subtitle">Write your own warm message to display as the current quote.</p>
+      <textarea
+        class="ee-modal__input"
+        id="eeInput"
+        placeholder="Type something beautiful..."
+        maxlength="300"
+      ></textarea>
+      <div class="ee-modal__actions">
+        <button class="ee-modal__btn ee-modal__btn--cancel" id="eeBtnCancel">Cancel</button>
+        <button class="ee-modal__btn ee-modal__btn--submit" id="eeBtnSubmit">✨ Display It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Script ═══ -->
+  <script src="hugs.js"></script>
+
+</body>
+</html>

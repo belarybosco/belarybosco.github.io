@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎂 | A Warm Hug For You</title>
+  <meta name="description"
+    content="A special birthday website filled with warm virtual hugs and inspiring medical quotes from your favorite shows.">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤗</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Decorative blobs -->
+  <div class="landing__decoration landing__decoration--1"></div>
+  <div class="landing__decoration landing__decoration--2"></div>
+  <div class="landing__decoration landing__decoration--3"></div>
+
+  <!-- Floating particles -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- Page transition -->
+  <div class="page-transition" id="pageTransition"></div>
+
+  <!-- Main Content -->
+  <main class="landing">
+    <div class="landing__content">
+
+      <p class="landing__pretitle" style="letter-spacing: 2px;">~ just hugs ~</p>
+
+      <h1 class="landing__title" id="birthdayTitle" style="margin-top: 1rem;">
+        Hi
+      </h1>
+
+      <p class="landing__subtitle"
+        style="max-width: 550px; width: 100%; box-sizing: border-box; line-height: 1.7; margin: 0 auto 2.5rem auto; padding: 0 1rem; text-align: center; color: rgba(255,255,255,0.85);">
+        Happy Birthday.<br><br>
+        You asked for no gifts this year, just virtual hugs. So I built you a place where they never run out.
+      </p>
+
+      <div class="landing__cta" style="display: flex; flex-direction: column; align-items: center;">
+        <a href="hugs.html" class="btn-hug" id="enterBtn" style="padding: 1.2rem 2.5rem;">
+          <span class="btn-hug__icon">🤗</span>
+          <span>Step inside</span>
+        </a>
+
+        <div id="hiddenBlurb"
+          style="display: none; margin-top: 2.5rem; font-style: italic; font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 450px; line-height: 1.6; text-align: center;">
+          (It’ll evolve over time. We can turn it into a Pomodoro timer, connect your Anki decks, or fill it with chill
+          background songs. Whatever makes your days a little easier, We’ll build it together, Promise<br><br>
+          P.S. Because you found this, the rest of the quotes are now unlocked.)
+        </div>
+
+        <button id="easterEggBtn" title="v1.0"
+          style="background: none; border: none; color: rgba(255,255,255,0.2); font-size: 0.75rem; cursor: pointer; letter-spacing: 2px; margin-top: 2rem; transition: opacity 0.3s ease;">
+          v1.0
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // ===== Letter-by-letter title animation =====
+    const titleEl = document.getElementById('birthdayTitle');
+    const text = titleEl.textContent.trim();
+    titleEl.innerHTML = '';
+
+    text.split('').forEach((char, i) => {
+      const span = document.createElement('span');
+      span.className = 'letter';
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.animationDelay = `${0.6 + i * 0.05}s`;
+      titleEl.appendChild(span);
+    });
+
+    // ===== Floating Particles =====
+    const particlesContainer = document.getElementById('particles');
+    const particleTypes = ['heart', 'sparkle', 'star'];
+    const particleColors = [
+      'rgba(255, 255, 255, 0.5)',
+      'rgba(255, 214, 224, 0.6)',
+      'rgba(255, 213, 79, 0.4)',
+      'rgba(255, 182, 193, 0.5)',
+      'rgba(212, 196, 232, 0.4)',
+    ];
+
+    function createParticle() {
+      const p = document.createElement('div');
+      const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+      p.className = `particle particle--${type}`;
+
+      const size = 10 + Math.random() * 18;
+      const x = Math.random() * 100;
+      const duration = 12 + Math.random() * 20;
+      const drift = -40 + Math.random() * 80;
+      const opacity = 0.2 + Math.random() * 0.35;
+      const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+
+      p.style.cssText = `
+        left: ${x}%;
+        font-size: ${size}px;
+        color: ${color};
+        animation-duration: ${duration}s;
+        animation-delay: ${Math.random() * 8}s;
+        --drift: ${drift}px;
+        --particle-opacity: ${opacity};
+      `;
+
+      particlesContainer.appendChild(p);
+
+      // Remove and recreate
+      setTimeout(() => {
+        p.remove();
+        createParticle();
+      }, (duration + 8) * 1000);
+    }
+
+    // Spawn initial particles
+    for (let i = 0; i < 25; i++) {
+      setTimeout(createParticle, i * 300);
+    }
+
+    // ===== Page transition on CTA click =====
+    const enterBtn = document.getElementById('enterBtn');
+    const pageTransition = document.getElementById('pageTransition');
+
+    let quotesUnlocked = false;
+
+    enterBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      pageTransition.classList.add('page-transition--enter');
+      setTimeout(() => {
+        window.location.href = quotesUnlocked ? 'hugs.html?unlocked=1' : 'hugs.html';
+      }, 400);
+    });
+
+    // ===== Easter Egg Reveal =====
+    const easterEggBtn = document.getElementById('easterEggBtn');
+    const hiddenBlurb = document.getElementById('hiddenBlurb');
+    if (easterEggBtn && hiddenBlurb) {
+      easterEggBtn.addEventListener('click', () => {
+        if (hiddenBlurb.style.display === 'none') {
+          hiddenBlurb.style.display = 'block';
+          hiddenBlurb.animate([
+            { opacity: 0, transform: 'translateY(-10px)' }, 
+            { opacity: 1, transform: 'translateY(0)' }
+          ], { duration: 600, fill: 'forwards' });
+          easterEggBtn.style.opacity = '0.05';
+          easterEggBtn.style.cursor = 'default';
+          
+          // Flag the quotes to be unlocked for this session
+          quotesUnlocked = true;
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
